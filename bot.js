@@ -15,7 +15,8 @@ controller.spawn({
   token: process.argv[2],
 }).startRTM()
 
-controller.hears(['hello', 'hi', 'hey'], 'direct_message, direct_mention, mention', function(bot, message) {
+controller.hears(['hello', 'hi', 'hey'], ['direct_message', 'direct_mention', 'mention'], function(bot, message) {
+  console.log("Hej");
   bot.api.reactions.add({
     timestamp: message.ts,
     channel: message.channel,
@@ -31,7 +32,7 @@ controller.hears(['hello', 'hi', 'hey'], 'direct_message, direct_mention, mentio
   });
 });
 
-controller.hears(['good', 'perfect', 'awesome'], 'direct_message, direct_mention, mention', function(bot, message) {
+controller.hears(['good', 'perfect', 'awesome', 'sweet'],['direct_message', 'direct_mention', 'mention'], function(bot, message) {
   bot.api.reactions.add({
     timestamp: message.ts,
     channel: message.channel,
@@ -39,7 +40,7 @@ controller.hears(['good', 'perfect', 'awesome'], 'direct_message, direct_mention
   });
 });
 
-controller.hears(['call me (.*)', 'my name is (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['call me (.*)', 'my name is (.*)'],['direct_message', 'direct_mention', 'mention'], function(bot, message) {
   var name = message.match[1];
   controller.storage.users.get(message.user, function(err, user) {
     if (!user) {
@@ -49,28 +50,26 @@ controller.hears(['call me (.*)', 'my name is (.*)'], 'direct_message,direct_men
     }
     user.name = name;
     controller.storage.users.save(user, function(err, id) {
-        bot.reply(message, 'Got it. I will call you ' + user.name + ' from now on.');
+      bot.reply(message, 'Got it. I will call you ' + user.name + ' from now on.');
     });
   });
 });
 
-controller.hears('help',['direct_message','direct_mention','mention'],function(bot,message) {
+controller.hears(['help'],['direct_message','direct_mention','mention'], function(bot,message) {
   bot.reply(message, welcomeMessage);
 });
 
-controller.hears('cat', ['direct_message', 'direct_mention', 'mention'], function(bot,message){
+controller.hears(['cat'], ['direct_message', 'direct_mention', 'mention'], function(bot,message){
   bot.reply(message, {
-    "attachments": [
-        {
-            "fallback": "This is supposed to be a silly cat",
-            "title": "Random picture",
-            "title_link": "https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg",
-            "text": "Here you have a picture of a silly cat",
-            "image_url": "https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg",
-            "color": "#B4DA55"
-        }
-    ]
-});
+    "attachments": [{
+      "fallback": "This is supposed to be a silly cat",
+      "title": "Silly cat",
+      "title_link": "https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg",
+      "text": "Here you have a picture of a silly cat",
+      "image_url": "https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg",
+      "color": "#B4DA55"
+    }]
+  });
 });
 
 controller.hears('pictures',['direct_message','direct_mention','mention'],function(bot,message) {
