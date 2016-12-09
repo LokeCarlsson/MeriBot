@@ -1,9 +1,9 @@
 
 const ClientWrapper = require('./main.js')
 class ImageVaultRequest {
-	constructor(searchString) {
+	constructor(searchString, size) {
 		this.searchString = searchString || ''
-		this.clientWrapper = new ClientWrapper(this.searchString)
+		this.clientWrapper = new ClientWrapper(this.searchString, size)
 	}
 
 	doRequest() {
