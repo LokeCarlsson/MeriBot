@@ -35,8 +35,8 @@ var core = new ImageVault.Client({
 	username: "hackathon",
 	password: "ImageVault2016"
 });
-			
-			
+
+
 core.json("MediaService/Find", {
   MediaUrlBase: "http://iv5qa.azurewebsites.net/",
   Populate: {
@@ -58,7 +58,7 @@ core.json("MediaService/Find", {
 	}]
 },
   "Filter" : {
-	"SearchString" : "alche" 
+	"SearchString" : "alche"
   }
 }, function (d) {
 	console.log(d);
@@ -67,7 +67,7 @@ core.json("MediaService/Find", {
 	} else {
 	  console.log("Found " + d.length + " hits.");
 	}
-	
+
 	for (var i = 0; i < d.length; i++) {
 		var item = d[i];
 		console.log("item :"+i+item);
