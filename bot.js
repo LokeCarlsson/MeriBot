@@ -15,9 +15,54 @@ controller.spawn({
   token: process.argv[2],
 }).startRTM()
 
-// Display welcome message
+controller.hears(['hello', 'hi', 'hey'], 'direct_message, direct_mention, mention', function(bot, message) {
+  bot.api.reactions.add({
+    timestamp: message.ts,
+    channel: message.channel,
+    name: 'robot_face',
+  });
+
+  controller.storage.users.get(message.user, function(err, user) {
+    if (user && user.name) {
+      bot.reply(message, 'Hello ' + user.name + '!!');
+    } else {
+      bot.reply(message, 'Hello.');
+    }
+  });
+});
+
+controller.hears(['call me (.*)', 'my name is (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
+  var name = message.match[1];
+  controller.storage.users.get(message.user, function(err, user) {
+    if (!user) {
+      user = {
+        id: message.user,
+      };
+    }
+    user.name = name;
+    controller.storage.users.save(user, function(err, id) {
+        bot.reply(message, 'Got it. I will call you ' + user.name + ' from now on.');
+    });
+  });
+});
+
 controller.hears('help',['direct_message','direct_mention','mention'],function(bot,message) {
   bot.reply(message, welcomeMessage);
+});
+
+controller.hears('cat', ['direct_message', 'direct_mention', 'mention'], function(bot,message){
+  bot.reply(message, {
+    "attachments": [
+        {
+            "fallback": "This is supposed to be a silly cat",
+            "title": "Random picture",
+            "title_link": "https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg",
+            "text": "Here you have a picture of a silly cat",
+            "image_url": "https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg",
+            "color": "#B4DA55"
+        }
+    ]
+});
 });
 
 controller.hears('pictures',['direct_message','direct_mention','mention'],function(bot,message) {
