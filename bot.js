@@ -11,7 +11,7 @@ const welcomeMessage = "Hi, I'm MeriBot!\nMention me and your request, about the
 
 // connect the bot to a stream of messages
 controller.spawn({
-  token: 'xoxb-114758030546-ManmLNxpLr0c2TH1xcLwy22w',
+  token: process.argv[2],
 }).startRTM()
 
 // Display welcome message
