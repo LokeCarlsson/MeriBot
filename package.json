@@ -1,0 +1,24 @@
+{
+  "name": "meribot",
+  "version": "1.0.0",
+  "description": "This is a bot we made on hackthon",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LokeCarlsson/MeriBot.git"
+  },
+  "author": "Loke Axel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LokeCarlsson/MeriBot/issues"
+  },
+  "homepage": "https://github.com/LokeCarlsson/MeriBot#readme",
+  "dependencies": {
+    "botkit": "^0.4.3",
+    "extend": "^3.0.0",
+    "request": "^2.79.0"
+  }
+}

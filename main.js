@@ -1,30 +1,5 @@
 "use strict";
 
-/*
-// var ImageVault = require("./imagevault.client"),
-// url=require("url"),
-// env = process.env
-// proxy = {
-// 	protocol:"http:",
-// 	hostname:"127.0.0.1",
-// 	port:"8889"
-// },
-// proxyRequests = function(){
-// 	var proxyUrl = url.format(proxy);
-// 	env.http_proxy = proxyUrl;
-// 	env.https_proxy = proxyUrl;
-// 	env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
-// },
-//  unproxyRequests = function () {
-//         env.http_proxy = "";
-//         env.https_proxy = "";
-//         env.NODE_TLS_REJECT_UNAUTHORIZED = "";
-// };
-// //proxyRequests();
-*/
-
-
-
 
 const ImageVault = require("./imagevault.client")
 const url = require('url')
@@ -76,3 +51,4 @@ core.json("MediaService/Find", {
 	}
 
 })
+
