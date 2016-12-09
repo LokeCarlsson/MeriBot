@@ -1,5 +1,6 @@
 "use strict";
 const Botkit = require('botkit');
+const ImageVaultRequest = require('./ImageVaultRequest');
 
 class Bot {
   constructor(token) {
@@ -41,8 +42,23 @@ class Bot {
     controller.hears('pictures', ['direct_message', 'direct_mention', 'mention'], function(bot, message) {
       bot.startConversation(message, function(err, convo) {
         convo.ask('What do you want to show picture of?', function(response, convo) {
-          convo.say('Alright, showing pictures of: ' + response.text);
-          convo.next();
+          const vault = new ImageVaultRequest(response.text);
+          vault.doRequest().then(pictures => {
+            bot.reply(message, {
+              "attachments": [{
+                "fallback": "This is supposed to be a " + response.text,
+                "title": response.text,
+                "title_link": `${pictures[0].Url}`,
+                "text": "Here you have a picture of " +response.text,
+                "image_url": `${pictures[0].Url}`,
+                "color": "#B4DA55"
+              }]
+            });
+            convo.next();
+          }).catch(error => {
+            convo.say(error.message);
+            convo.next();
+          })
         });
       })
     });

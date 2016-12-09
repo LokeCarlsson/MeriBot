@@ -9,8 +9,12 @@ class ImageVaultRequest {
 	doRequest() {
 		return new Promise((resolve, reject) => {
 			this.clientWrapper.clientRequest(response => {
-				const pictures = this.processRequest(response)
-				resolve(pictures)
+				try {
+					const pictures = this.processRequest(response)
+					resolve(pictures)
+				} catch (error) {
+					reject(error)
+				}
 			})
 		})
 	}
@@ -23,14 +27,5 @@ class ImageVaultRequest {
 		return response.map(picture => picture.MediaConversions[0])
 	}
 }
-
-const vault = new ImageVaultRequest('alche')
-vault.doRequest().then(res => {
-	console.log(res)
-}).catch(error => {
-	console.log(error)
-})
-
-
 
 module.exports = ImageVaultRequest
