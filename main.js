@@ -1,22 +1,21 @@
-"use strict";
 const ImageVault = require("./imagevault.client")
 
 class ClientWrapper {
-	constructor(searchString) {
+	constructor(searchString, service) {
 		this.core = new ImageVault.Client({
 		core: "http://iv5qa.azurewebsites.net/apiv2",
 		username: "hackathon",
 		password: "ImageVault2016"
 		})
 
-		this.service = "MediaService/Find"
+		this.service = service || "MediaService/Find"
 		this.searchString = searchString || ''
 	}
 
 	clientRequest(callback) {
 		const clientConfig = this.clientRequestConfig(this.searchString)
 
-		// passing callback so I can use promise
+		// passing callback so I can use promises
 		this.core.json(this.service, clientConfig, callback)
 	}
 
