@@ -3,7 +3,8 @@
 const Botkit = require('botkit');
 
 const controller = Botkit.slackbot({
-  debug: false
+  debug: false,
+  json_file_store: 'db'
 });
 
 const welcomeMessage = "Hi, I'm MeriBot!\nMention me and your request, about the following:\n• *pictures*\n• *videos*";
@@ -20,7 +21,6 @@ controller.hears('help',['direct_message','direct_mention','mention'],function(b
 });
 
 controller.hears('pictures',['direct_message','direct_mention','mention'],function(bot,message) {
-  bot.startTyping;
   bot.startConversation(message,function(err,convo) {
     convo.ask('What do you want to show picture of?',function(response,convo) {
       convo.say('Alright, showing pictures of: ' + response.text);
