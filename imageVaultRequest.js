@@ -27,7 +27,10 @@ class ImageVaultRequest {
 const vault = new ImageVaultRequest('alche')
 vault.doRequest().then(res => {
 	console.log(res)
+}).catch(error => {
+	console.log(error)
 })
 
 
-module.exports = imageVault
+
+module.exports = ImageVaultRequest
